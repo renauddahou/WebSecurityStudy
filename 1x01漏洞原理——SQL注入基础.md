@@ -1,49 +1,50 @@
-## 一、SQL注入概述
+## I. Aperçu de l'injection SQL
 
-1. SQL注入是一种网络攻击手段，它可以在用户输入的字符串中加入恶意的SQL语句，从而执行计划外的命令或访问未被授权的数据。SQL注入可以绕过应用程序的安全措施，控制数据库服务器，篡改或删除数据库中的记录。
-2. SQL注入是由于程序开发过程中不注意规范书写SQL语句和对特殊字符进行过滤，导致用户输入的字符串中的SQL语句被数据库服务器误认为是正常的SQL语句而执行。SQL注入也可能是由于使用了字符串拼接的方式构造SQL语句，而没有使用参数化查询。
+1) L'injection SQL est une méthode d'attaque de réseau qui permet d'ajouter des instructions SQL malveillantes dans les chaînes d'entrée de l'utilisateur afin d'exécuter des commandes non planifiées ou d'accéder à des données non autorisées.
+2. l'injection SQL est causée par le manque d'attention portée à la standardisation de l'écriture des instructions SQL et au filtrage des caractères spéciaux pendant le développement d'une application, ce qui fait que l'instruction SQL dans la chaîne saisie par l'utilisateur est prise par le serveur de base de données pour une instruction SQL normale et exécutée. l'injection SQL peut également être causée par l'utilisation de l'épissage de chaîne pour construire l'instruction SQL sans utiliser de requête paramétrée.
 
-## 二、SQL基础操作语法
+## II. syntaxe des opérations de base du langage SQL
 
-1.  学习SQL注入需要一定的SQL语言基础，了解常用的SQL语句和函数，以及数据库的结构和操作。 
-2.  **_常用的SQL语句_**有以下几种： 
-   - 查询：使用SELECT语句从表中选取数据，可以指定要查询的列名、条件、排序等。例如：
+1) L'apprentissage de l'injection SQL nécessite une certaine connaissance du langage SQL, une compréhension des instructions et fonctions SQL courantes, ainsi que de la structure et du fonctionnement de la base de données. 
+2) **_Enoncés SQL couramment utilisés_** Il y a les suivants : 
+   - Requête : l'instruction SELECT permet de sélectionner des données dans une table. Vous pouvez spécifier le nom des colonnes, les conditions, le tri, etc. pour effectuer la requête. Exemple :
 ```sql
 SELECT * FROM person WHERE age > 18 ORDER BY name;
 ```
 
-   - 增加：使用INSERT INTO语句向表中插入新的行，可以指定要插入的列名和值。例如：
+   - ADD : Utilisez l'instruction INSERT INTO pour insérer de nouvelles lignes dans un tableau en spécifiant les noms et les valeurs des colonnes à insérer. Exemple :
 ```sql
-INSERT INTO person (id, name, age, gender) VALUES (1, 'sam', 20, '男');
+INSERT INTO person (id, name, age, gender) VALUES (1, 'sam', 20, 'H');
 ```
 
-   - 删除：使用DELETE语句删除表中的行，可以指定要删除的条件。例如：
+   - Supprimer : l'instruction DELETE permet de supprimer des lignes d'un tableau et de spécifier les conditions de suppression des lignes. Vous pouvez spécifier les conditions dans lesquelles les lignes doivent être supprimées.
 ```sql
 DELETE FROM person WHERE id = 1;
 ```
 
-   - 修改：使用UPDATE语句修改表中的数据，可以指定要修改的列名和值，以及修改的条件。例如：
+    - Modifier : Utilisez l'instruction UPDATE pour modifier les données d'une table. Vous pouvez spécifier les noms et les valeurs des colonnes à modifier ainsi que les conditions de la modification. Exemple :
 ```sql
 UPDATE person SET age = 21 WHERE id = 1;
 ```
 
-3.  常用的SQL函数有以下几类： 
-   - 数值型函数：用于对数值进行计算或转换，比如ABS、ROUND、FLOOR、CEIL、POWER、SQRT、SIN、COS、LOG等。
-   - 字符串型函数：用于对字符串进行操作或处理，比如CONCAT、SUBSTRING、LENGTH、REPLACE、TRIM、UPPER、LOWER、REVERSE等。
-   - 日期时间函数：用于对日期和时间进行格式化或计算，比如CURDATE、CURTIME、NOW、DATE_FORMAT、DATE_ADD、DATE_SUB、DATEDIFF、TIMEDIFF等。
-   - 聚合函数：用于对一组值进行统计或分析，比如SUM、AVG、MIN、MAX、COUNT、DISTINCT、GROUP_CONCAT等。
-   - 窗口函数：用于对分组后的数据进行排序或计算，比如ROW_NUMBER、RANK、DENSE_RANK、NTILE、LAG、LEAD、FIRST_VALUE、LAST_VALUE等。
-4.  **_MySQL的information_schema_**。information_schema是MySQL的一个特殊数据库，它提供了关于MySQL服务器的元数据信息，例如数据库或表的名称，列的数据类型，或访问权限等。有时这些信息也被称为数据字典或系统目录。你可以使用标准的SQL语句来查询information_schema中的表，以获取元数据信息。在SQL注入中，通常可以利用该库查询其他库中的数据 
+3) Les fonctions SQL couramment utilisées sont des types suivants : 
+   - Fonctions numériques : utilisées pour calculer ou convertir des valeurs numériques, telles que ABS, ROUND, FLOOR, CEIL, POWER, SQRT, SIN, COS, LOG, etc.
+   - Fonctions de chaîne : utilisées pour opérer sur des chaînes ou des traitements, telles que CONCAT, SUBSTRING, LENGTH, REPLACE, TRIM, UPPER, LOWER, REVERSE, etc.
+   - Fonctions de date et d'heure : utilisées pour formater ou calculer la date et l'heure, telles que CURDATE, CURTIME, NOW, DATE_FORMAT, DATE_ADD, DATE_SUB, DATEDIFF, TIMEDIFF, etc.
+   - Fonction d'agrégation : utilisée pour un groupe de valeurs à des fins statistiques ou analytiques, comme SUM, AVG, MIN, MAX, COUNT, DISTINCT, GROUP_CONCAT, etc.
+   - Fonctions de fenêtre : utilisées pour trier ou calculer les données après le regroupement, telles que ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, FIRST_VALUE, LAST_VALUE, etc.
+   - 
+4. **_MySQL's information_schema_**. information_schema est une base de données MySQL spéciale qui fournit des métadonnées sur le serveur MySQL, telles que les noms des bases de données ou des tables, les types de données des colonnes ou les droits d'accès. Ces informations sont parfois appelées dictionnaire de données ou catalogue système. Vous pouvez utiliser des instructions SQL standard pour interroger les tables de l'information_schema afin d'obtenir des informations sur les métadonnées. En injection SQL, vous pouvez généralement utiliser cette bibliothèque pour interroger des données dans d'autres bibliothèques 
 ```sql
 SELECT TABLE_NAME, TABLE_TYPE
 FROM information_schema.TABLES;
 ```
  
 
-## 三、SQL注入常用函数和语句
+## III. fonctions et déclarations couramment utilisées dans les injections SQL
 
-1.  **_SQL注入中常用的函数_**。SQL注入是一种利用SQL语句中的漏洞，向数据库发送恶意的SQL命令，从而获取敏感信息或执行非法操作的攻击技术。SQL注入中常用的函数有以下几种： 
-   - database()：该函数可以显示当前正在使用的数据库库名。例如：
+1. **_Fonctions couramment utilisées dans l'injection SQL_** L'injection SQL est une technique d'attaque qui tire parti de vulnérabilités dans les instructions SQL pour envoyer des commandes SQL malveillantes à une base de données afin d'obtenir des informations sensibles ou d'effectuer des opérations illégales.Les fonctions couramment utilisées dans l'injection SQL sont les suivantes : 
+   - database() : cette fonction affiche le nom de la bibliothèque de base de données actuellement utilisée. Exemple :
 ```sql
 SELECT database();
 ```
