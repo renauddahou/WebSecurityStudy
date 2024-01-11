@@ -14,7 +14,7 @@ SELECT * FROM person WHERE age > 18 ORDER BY name;
 
    - ADD : Utilisez l'instruction INSERT INTO pour insérer de nouvelles lignes dans un tableau en spécifiant les noms et les valeurs des colonnes à insérer. Exemple :
 ```sql
-INSERT INTO person (id, name, age, gender) VALUES (1, 'sam', 20, 'H');
+INSERT INTO person (id, name, age, gender) VALUES (1, 'sam', 20, 'Male');
 ```
 
    - Supprimer : l'instruction DELETE permet de supprimer des lignes d'un tableau et de spécifier les conditions de suppression des lignes. Vous pouvez spécifier les conditions dans lesquelles les lignes doivent être supprimées.
@@ -49,10 +49,10 @@ FROM information_schema.TABLES;
 SELECT database();
 ```
 
-   - substring()：该函数可以从指定的字段中提取出字段的内容。例如：
+   - substring() : cette fonction extrait le contenu d'un champ à partir du champ spécifié. Exemple : cette fonction extrait le contenu d'un champ à partir du champ spécifié :
 ```sql
-SELECT substring('hello', 1, 2); -- 返回 'he'
-SELECT substring(name, 1, 2) FROM person; -- 返回 person 表中 name 列的前两个字符
+SELECT substring('hello', 1, 2); -- cela donne 'he'
+SELECT substring(name, 1, 2) FROM person; -- cela retourne les deux premiers caractères de la colonne name dans la table person
 ```
 
    - length()：该函数可以返回指定字符串或字段的长度。例如：
