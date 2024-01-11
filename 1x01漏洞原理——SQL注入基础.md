@@ -81,43 +81,43 @@ SELECT hex(123); -- cela donne '7B'
    - unhex() : cette fonction convertit un hexadécimal en chaîne de caractères ou en nombre. Exemple :
 ```sql
 SELECT unhex('68656C6C6F'); -- cela donne 'hello'
-SELECT CONVERT(UNHEX('68656C6C6F') USING utf8);
+SELECT CONVERT(UNHEX('68656C6C6F') USING utf8);  -- commande alternative
 
 SELECT unhex('7B'); -- cela donne 123
-SELECT CONV('7B', 16, 10);
+SELECT CONV('7B', 16, 10);  -- commande alternative
 
 16 est la base (base hexadécimale).
 10 est la base cible (base décimale)
 ```
 
-   - load_file()：该函数可以读取指定文件的内容。例如：
+   - load_file() : cette fonction lit le contenu du fichier spécifié. Exemple : cette fonction lit le contenu du fichier spécifié :
 ```sql
-SELECT load_file('/etc/passwd'); -- 返回 /etc/passwd 文件的内容
+SELECT load_file('/etc/passwd'); -- Renvoie le contenu du fichier /etc/passwd
 ```
 
-   - user()：该函数可以返回当前数据库连接使用的用户。例如：
+   - user() : Cette fonction renvoie l'utilisateur utilisé pour la connexion actuelle à la base de données. Exemple :
 ```sql
-SELECT user(); -- 返回 'root@localhost'
+SELECT user(); -- renvoie'root@localhost'
 ```
 
-   - version()：该函数可以返回当前数据库的版本。例如：
+   - version() : Cette fonction renvoie la version actuelle de la base de données. Exemple :
 ```sql
-SELECT version(); -- 返回 '8.0.26'
+SELECT version(); -- renvoie '8.0.26'
 ```
 
-   - sleep()：该函数可以使数据库暂停指定的秒数。例如：
+   - sleep() : cette fonction suspend la base de données pendant un certain nombre de secondes. Exemple :
 ```sql
-SELECT sleep(5); -- 使数据库暂停 5 秒
+SELECT sleep(5); -- Interrompre la base de données pendant 5 secondes
 ```
 
-   - floor()：该函数可以返回不大于指定数值的最大整数。例如：
+   - floor() : cette fonction renvoie le plus grand nombre entier qui n'est pas supérieur à la valeur spécifiée. Exemple : 
 ```sql
-SELECT floor(3.14); -- 返回 3
+SELECT floor(3.14); -- renvoie 3
 ```
 
-   - rand()：该函数可以返回一个随机数。例如：
+   - rand() : cette fonction permet de renvoyer un nombre aléatoire. Exemple :
 ```sql
-SELECT rand(); -- 返回 0.123456
+SELECT rand(); -- renvoie 0.123456
 ```
 
 2.  **_SQL注入中的常用语句_** 
