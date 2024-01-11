@@ -55,33 +55,39 @@ SELECT substring('hello', 1, 2); -- cela donne 'he'
 SELECT substring(name, 1, 2) FROM person; -- cela retourne les deux premiers caractères de la colonne name dans la table person
 ```
 
-   - length()：该函数可以返回指定字符串或字段的长度。例如：
+   - length() : cette fonction permet d'obtenir la longueur de la chaîne ou du champ spécifié. Exemple : cette fonction renvoie la longueur de la chaîne ou du champ spécifié :
 ```sql
-SELECT length('hello'); -- 返回 5
-SELECT length(name) FROM person; -- 返回 person 表中 name 列的长度
+SELECT length('hello'); -- cela donne 5
+SELECT length(name) FROM person; -- Retourne la longueur de la colonne name dans la table person.
 ```
 
-   - concat()：该函数可以将多个字符串或字段连接起来。例如：
+   - concat() : cette fonction concatène plusieurs chaînes ou champs. Exemple :
 ```sql
-SELECT concat('hello', 'world'); -- 返回 'helloworld'
-SELECT concat(name, age) FROM person; -- 返回 person 表中 name 列和 age 列的连接
+SELECT concat('hello', 'world'); -- cela donne'helloworld'
+SELECT concat(name, age) FROM person;  -- Renvoie la jointure des colonnes name et age de la table person
 ```
 
-   - group_concat()：该函数可以将一组值连接起来，常用于分组查询。例如：
+   - group_concat () : cette fonction permet de relier un groupe de valeurs ; elle est souvent utilisée dans les requêtes de groupe. Exemple : cette fonction est souvent utilisée dans les requêtes de groupe :
 ```sql
-SELECT gender, group_concat(name) FROM person GROUP BY gender; -- 返回 person 表中按性别分组的姓名列表
+SELECT gender, group_concat(name) FROM person GROUP BY gender; -- Renvoie une liste de noms(name) regroupés par sexe(gender) dans la table person.
 ```
 
-   - hex()：该函数可以将字符串或数字转换为十六进制。例如：
+   - hex() : cette fonction convertit une chaîne de caractères ou un nombre en hexadécimal. Exemple :
 ```sql
-SELECT hex('hello'); -- 返回 '68656C6C6F'
-SELECT hex(123); -- 返回 '7B'
+SELECT hex('hello'); -- cela donne  '68656C6C6F'
+SELECT hex(123); -- cela donne '7B'
 ```
 
-   - unhex()：该函数可以将十六进制转换为字符串或数字。例如：
+   - unhex() : cette fonction convertit un hexadécimal en chaîne de caractères ou en nombre. Exemple :
 ```sql
-SELECT unhex('68656C6C6F'); -- 返回 'hello'
-SELECT unhex('7B'); -- 返回 123
+SELECT unhex('68656C6C6F'); -- cela donne 'hello'
+SELECT CONVERT(UNHEX('68656C6C6F') USING utf8);
+
+SELECT unhex('7B'); -- cela donne 123
+SELECT CONV('7B', 16, 10);
+
+16 est la base (base hexadécimale).
+10 est la base cible (base décimale)
 ```
 
    - load_file()：该函数可以读取指定文件的内容。例如：
